@@ -96,18 +96,23 @@ public class UsersController {
     }
     //实现登录
     @RequestMapping("/login")
-    public String login(String username, String password, Model model, HttpSession session){
-        Users user = usersService.login(username, password);
-        if(user==null) {
-            model.addAttribute("info","用户名密码错误!");
-            return "login";  //继续登入
+    public String login(String inputCode,String username, String password, Model model, HttpSession session) {
+        //获取手机验证
+        String code = session.getAttribute("code").toString();
+        if (code.equals(inputCode)) {
+            Users user = usersService.login(username, password);
+            if (user == null) {
+                model.addAttribute("info", "用户名密码错误!");
+                return "login";  //继续登入
+            } else {
+                //只要登入:使用session或者cookie保存登入的信息
+                session.setAttribute("user", user);
+                session.setMaxInactiveInterval(3000);
+                return "redirect:getUserHouse";  //用户中心的管理页
+            }
+        }else {
+            model.addAttribute("info", "验证密码错误！！！");
+            return "login";
         }
-        else {
-            //只要登入:使用session或者cookie保存登入的信息
-            session.setAttribute("user",user);
-            session.setMaxInactiveInterval(3000); //30秒
-            return "guanli";  //用户中心的管理页
-        }
-
     }
 }
