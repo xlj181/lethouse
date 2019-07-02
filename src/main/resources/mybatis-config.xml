@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <package name="com.kgc.entity"/>
+    </typeAliases>
+
+
+    <!--分页插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--<property name="dialect" value="mysql"/>-->
+        </plugin>
+    </plugins>
+
+
+    <!--加载sql映射文件-->
+    <mappers>
+        <mapper resource="com/kgc/mapper/DistrictMapper.xml"></mapper>
+        <mapper resource="com/kgc/mapper/HouseMapper.xml"></mapper>
+        <mapper resource="com/kgc/mapper/StreetMapper.xml"></mapper>
+        <mapper resource="com/kgc/mapper/TypeMapper.xml"></mapper>
+        <mapper resource="com/kgc/mapper/UsersMapper.xml"></mapper>
+    </mappers>
+
+
+</configuration>
